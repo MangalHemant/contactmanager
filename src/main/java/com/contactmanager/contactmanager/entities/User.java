@@ -3,6 +3,8 @@ package com.contactmanager.contactmanager.entities;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -41,6 +43,7 @@ public class User {
     private boolean phoneVerified = false;
 
     // SELF, GOOGLE, FACEBOOK, TWITTER, LINKEDIN, GITHUB
+   @Enumerated(value = EnumType.STRING)
     private Providers provider = Providers.SELF;
     private String providerUserId;
 
