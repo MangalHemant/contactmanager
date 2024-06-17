@@ -7,18 +7,25 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.contactmanager.contactmanager.entities.User;
+import com.contactmanager.contactmanager.helpers.AppConstants;
 import com.contactmanager.contactmanager.helpers.ResourceNotFoundException;
 import com.contactmanager.contactmanager.repositories.UserRepo;
 import com.contactmanager.contactmanager.services.UserService;
+
+
 
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -29,7 +36,13 @@ public class UserServiceImpl implements UserService {
         user.setUserId(userId);
         // password encode
         // user.setPassword(userId);
-        // logger.info(user.getProvider().toString());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        // set the user role
+
+        user.setRoleList(List.of(AppConstants.ROLE_USER));
+
+        logger.info(user.getProvider().toString());
 
         return userRepo.save(user);
 
@@ -55,8 +68,8 @@ public class UserServiceImpl implements UserService {
         user2.setEnabled(user.isEnabled());
         user2.setEmailVerified(user.isEmailVerified());
         user2.setPhoneVerified(user.isPhoneVerified());
-        // user2.setProvider(user.getProvider());
-        // user2.setProviderUserId(user.getProviderUserId());
+        user2.setProvider(user.getProvider());
+        user2.setProviderUserId(user.getProviderUserId());
         // save the user in database
         User save = userRepo.save(user2);
         return Optional.ofNullable(save);
@@ -88,4 +101,5 @@ public class UserServiceImpl implements UserService {
         return userRepo.findAll();
     }
 
+    
 }
