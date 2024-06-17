@@ -66,17 +66,14 @@ public class SecurityConfig {
 
         // configuration
 
-        // urls configure kiay hai ki koun se public rangenge aur koun se private
-        // rangenge
+        
         httpSecurity.authorizeHttpRequests(authorize -> {
             // authorize.requestMatchers("/home", "/register", "/services").permitAll();
             authorize.requestMatchers("/user/**").authenticated();
             authorize.anyRequest().permitAll();
         });
 
-        // form default login
-        // agar hame kuch bhi change karna hua to hama yaha ayenge: form login se
-        // related
+       
         httpSecurity.formLogin(Customizer.withDefaults());
 
         return httpSecurity.build();
