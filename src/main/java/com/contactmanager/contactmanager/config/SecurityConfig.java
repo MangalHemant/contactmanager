@@ -2,11 +2,11 @@ package com.contactmanager.contactmanager.config;
 
 
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,7 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.contactmanager.contactmanager.services.Implementation.SecurityCustomUserDetailService;
-
 
 
 @Configuration
@@ -50,6 +49,9 @@ public class SecurityConfig {
     @Autowired
     private SecurityCustomUserDetailService userDetailService;
 
+    @Autowired
+    private OAuthAuthenticationSuccessHandler handler;
+
     // configuraiton of authentication providerfor spring security
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -67,15 +69,13 @@ public class SecurityConfig {
 
         // configuration
 
-        
+        // urls configure kiay hai ki koun se public rangenge aur koun se private
+        // rangenge
         httpSecurity.authorizeHttpRequests(authorize -> {
             // authorize.requestMatchers("/home", "/register", "/services").permitAll();
             authorize.requestMatchers("/user/**").authenticated();
             authorize.anyRequest().permitAll();
         });
-
-       
-        // httpSecurity.formLogin(Customizer.withDefaults());
 
         // form default login
         // agar hame kuch bhi change karna hua to hama yaha ayenge: form login se
@@ -119,20 +119,18 @@ public class SecurityConfig {
 
         });
 
-          httpSecurity.csrf(AbstractHttpConfigurer::disable);
+        httpSecurity.csrf(AbstractHttpConfigurer::disable);
         httpSecurity.logout(logoutForm -> {
             logoutForm.logoutUrl("/do-logout");
             logoutForm.logoutSuccessUrl("/login?logout=true");
         });
 
-        
         // oauth configurations
 
         httpSecurity.oauth2Login(oauth -> {
             oauth.loginPage("/login");
-            // oauth.successHandler(handler);
+            oauth.successHandler(handler);
         });
-
 
         return httpSecurity.build();
 
