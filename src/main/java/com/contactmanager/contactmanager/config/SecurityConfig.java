@@ -74,7 +74,49 @@ public class SecurityConfig {
         });
 
        
-        httpSecurity.formLogin(Customizer.withDefaults());
+        // httpSecurity.formLogin(Customizer.withDefaults());
+
+        // form default login
+        // agar hame kuch bhi change karna hua to hama yaha ayenge: form login se
+        // related
+        httpSecurity.formLogin(formLogin -> {
+
+            //
+            formLogin.loginPage("/login");
+            formLogin.loginProcessingUrl("/authenticate");
+            formLogin.successForwardUrl("/user/dashboard");
+            // formLogin.failureForwardUrl("/login?error=true");
+            // formLogin.defaultSuccessUrl("/home");
+            formLogin.usernameParameter("email");
+            formLogin.passwordParameter("password");
+
+            // formLogin.failureHandler(new AuthenticationFailureHandler() {
+
+            // @Override
+            // public void onAuthenticationFailure(HttpServletRequest request,
+            // HttpServletResponse response,
+            // AuthenticationException exception) throws IOException, ServletException {
+            // // TODO Auto-generated method stub
+            // throw new UnsupportedOperationException("Unimplemented method
+            // 'onAuthenticationFailure'");
+            // }
+
+            // });
+
+            // formLogin.successHandler(new AuthenticationSuccessHandler() {
+
+            // @Override
+            // public void onAuthenticationSuccess(HttpServletRequest request,
+            // HttpServletResponse response,
+            // Authentication authentication) throws IOException, ServletException {
+            // // TODO Auto-generated method stub
+            // throw new UnsupportedOperationException("Unimplemented method
+            // 'onAuthenticationSuccess'");
+            // }
+
+            // });
+
+        });
 
         return httpSecurity.build();
 
