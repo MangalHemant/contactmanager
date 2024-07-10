@@ -74,7 +74,7 @@ public class PageController {
     @GetMapping("/register")
     public String register(Model model) {
         UserForm userForm = new UserForm();
-        // default data bhi daal sakte hai
+        // default data 
         // userForm.setName("Hemant");
         // userForm.setAbout("This is about : Write something about yourself");
         model.addAttribute("userForm", userForm);
@@ -118,7 +118,7 @@ public class PageController {
 
         session.setAttribute("message", message);
 
-        // redirectto login page
+        // redirect to login page
         return "redirect:/register";
     }
 

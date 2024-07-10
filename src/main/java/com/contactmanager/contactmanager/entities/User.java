@@ -77,8 +77,7 @@ public class User implements UserDetails {
         return roles;
     }
 
-    // for this project:
-    // email id hai wahi hamare username
+
 
     @Override
     public String getUsername() {

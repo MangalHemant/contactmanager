@@ -50,15 +50,15 @@ public class SecurityConfig {
     private SecurityCustomUserDetailService userDetailService;
 
     @Autowired
-    private OAuthAuthenticationSuccessHandler handler;
+    private OAuthAuthenicationSuccessHandler handler;
 
     // configuraiton of authentication providerfor spring security
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        // user detail service ka object:
+        // user detail service object:
         daoAuthenticationProvider.setUserDetailsService(userDetailService);
-        // password encoder ka object
+        // password encoder object
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
 
         return daoAuthenticationProvider;
@@ -67,10 +67,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
-        // configuration
-
-        // urls configure kiay hai ki koun se public rangenge aur koun se private
-        // rangenge
+        // url configuration for public and private
         httpSecurity.authorizeHttpRequests(authorize -> {
             // authorize.requestMatchers("/home", "/register", "/services").permitAll();
             authorize.requestMatchers("/user/**").authenticated();
@@ -78,11 +75,10 @@ public class SecurityConfig {
         });
 
         // form default login
-        // agar hame kuch bhi change karna hua to hama yaha ayenge: form login se
-        // related
+       
         httpSecurity.formLogin(formLogin -> {
 
-            //
+            
             formLogin.loginPage("/login");
             formLogin.loginProcessingUrl("/authenticate");
             formLogin.successForwardUrl("/user/dashboard");

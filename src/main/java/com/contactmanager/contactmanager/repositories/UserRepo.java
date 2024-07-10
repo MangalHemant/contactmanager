@@ -11,7 +11,7 @@ import com.contactmanager.contactmanager.entities.User;
 
 @Repository
 public interface UserRepo extends JpaRepository<User, String> {
-    // extra methods db relatedoperations
+    // extra methods db related operations
     // custom query methods
     // custom finder methods
 
