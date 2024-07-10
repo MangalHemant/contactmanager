@@ -24,9 +24,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 public class PageController {
 
     @Autowired
-    public UserService userService;
+    private UserService userService;
 
-    
     @GetMapping("/")
     public String index() {
         return "redirect:/home";
@@ -36,9 +35,9 @@ public class PageController {
     public String home(Model model) {
         System.out.println("Home page handler");
         // sending data to view
-        model.addAttribute("name", "Substring Technologies");
-        model.addAttribute("youtubeChannel", "Learn Code With Durgesh");
-        model.addAttribute("githubRepo", "https://github.com/learncodewithdurgesh/");
+        model.addAttribute("name", "Hemant");
+        model.addAttribute("youtubeChannel", "bbkivines");
+        model.addAttribute("githubRepo", "https://github.com");
         return "home";
     }
 
@@ -66,40 +65,56 @@ public class PageController {
         return new String("contact");
     }
 
+    //login page
     @GetMapping("/login")
     public String login() {
         return new String("login");
     }
 
+    // registration page
     @GetMapping("/register")
     public String register(Model model) {
+
         UserForm userForm = new UserForm();
-        // default data 
+      
         // userForm.setName("Hemant");
         // userForm.setAbout("This is about : Write something about yourself");
         model.addAttribute("userForm", userForm);
+
         return "register";
     }
 
-     @RequestMapping(value = "/do-register", method = RequestMethod.POST)
-    public String processRegister(@Valid @ModelAttribute UserForm userForm,BindingResult rBinding, HttpSession session) {
+    // processing register
+
+    @RequestMapping(value = "/do-register", method = RequestMethod.POST)
+    public String processRegister(@Valid @ModelAttribute UserForm userForm, BindingResult rBindingResult,
+            HttpSession session) {
         System.out.println("Processing registration");
         // fetch form data
         // UserForm
         System.out.println(userForm);
 
         // validate form data
-        if(rBinding.hasErrors())
-        {
+        if (rBindingResult.hasErrors()) {
             return "register";
         }
+
+       
 
         // save to database
 
         // userservice
 
-        
-
+        // UserForm--> User
+        // User user = User.builder()
+        // .name(userForm.getName())
+        // .email(userForm.getEmail())
+        // .password(userForm.getPassword())
+        // .about(userForm.getAbout())
+        // .phoneNumber(userForm.getPhoneNumber())
+        // .profilePic(
+        // "https://www.learncodewithdurgesh.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fdurgesh_sir.35c6cb78.webp&w=1920&q=75")
+        // .build();
 
         User user = new User();
         user.setName(userForm.getName());
@@ -114,14 +129,15 @@ public class PageController {
 
         System.out.println("user saved :");
 
-        Message message = Message.builder().content("Registration Successful").type(MessageType.blue).build();
+        // message = "Registration Successful"
+
+        // add the message:
+
+        Message message = Message.builder().content("Registration Successful").type(MessageType.green).build();
 
         session.setAttribute("message", message);
 
         // redirect to login page
         return "redirect:/register";
     }
-
-
-
 }
