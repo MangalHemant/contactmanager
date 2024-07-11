@@ -19,7 +19,7 @@ import com.contactmanager.contactmanager.services.UserService;
 @RequestMapping("/user")
 public class UserController {
 
-      private Logger logger = LoggerFactory.getLogger(UserController.class);
+    private Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserService userService;
@@ -39,6 +39,7 @@ public class UserController {
 
         return "user/profile";
     }
+
     // user add contacts page
 
     // user view contacts
@@ -46,5 +47,4 @@ public class UserController {
     // user edit contact
 
     // user delete contact
-
 }
