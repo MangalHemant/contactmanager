@@ -95,9 +95,18 @@ public class OAuthAuthenicationSuccessHandler implements AuthenticationSuccessHa
             user.setAbout("This account is created using github");
         }
 
+        else if (authorizedClientRegistrationId.equalsIgnoreCase("linkedin")) {
+
+        }
+
         else {
             logger.info("OAuthAuthenicationSuccessHandler: Unknown provider");
         }
+
+        // save the user
+        // facebook
+        // facebook attributes
+        // linkedin
 
         /*
          * 
