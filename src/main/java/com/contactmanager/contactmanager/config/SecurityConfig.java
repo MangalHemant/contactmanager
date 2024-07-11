@@ -56,9 +56,9 @@ public class SecurityConfig {
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        // user detail service object:
+        // user detail service ka object:
         daoAuthenticationProvider.setUserDetailsService(userDetailService);
-        // password encoder object
+        // password encoder ka object
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
 
         return daoAuthenticationProvider;
@@ -67,7 +67,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
-        // url configuration for public and private
+        // configuration
+
+        // urls configure kiay hai ki koun se public rangenge aur koun se private
+        // rangenge
         httpSecurity.authorizeHttpRequests(authorize -> {
             // authorize.requestMatchers("/home", "/register", "/services").permitAll();
             authorize.requestMatchers("/user/**").authenticated();
@@ -75,13 +78,14 @@ public class SecurityConfig {
         });
 
         // form default login
-       
+        // agar hame kuch bhi change karna hua to hama yaha ayenge: form login se
+        // related
         httpSecurity.formLogin(formLogin -> {
 
-            
+            //
             formLogin.loginPage("/login");
             formLogin.loginProcessingUrl("/authenticate");
-            formLogin.successForwardUrl("/user/dashboard");
+            formLogin.successForwardUrl("/user/profile");
             // formLogin.failureForwardUrl("/login?error=true");
             // formLogin.defaultSuccessUrl("/home");
             formLogin.usernameParameter("email");
@@ -116,16 +120,16 @@ public class SecurityConfig {
         });
 
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
-        httpSecurity.logout(logoutForm -> {
-            logoutForm.logoutUrl("/do-logout");
-            logoutForm.logoutSuccessUrl("/login?logout=true");
-        });
-
         // oauth configurations
 
         httpSecurity.oauth2Login(oauth -> {
             oauth.loginPage("/login");
             oauth.successHandler(handler);
+        });
+
+        httpSecurity.logout(logoutForm -> {
+            logoutForm.logoutUrl("/do-logout");
+            logoutForm.logoutSuccessUrl("/login?logout=true");
         });
 
         return httpSecurity.build();
