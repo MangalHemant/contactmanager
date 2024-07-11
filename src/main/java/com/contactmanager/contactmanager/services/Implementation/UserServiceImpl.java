@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
 
         User user2 = userRepo.findById(user.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-        // Updating user 2 from user
+        // update karenge user2 from user
         user2.setName(user.getName());
         user2.setEmail(user.getEmail());
         user2.setPassword(user.getPassword());
@@ -101,5 +101,10 @@ public class UserServiceImpl implements UserService {
         return userRepo.findAll();
     }
 
-    
+    @Override
+    public User getUserByEmail(String email) {
+        return userRepo.findByEmail(email).orElse(null);
+
+    }
+
 }
