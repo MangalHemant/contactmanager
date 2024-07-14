@@ -51,7 +51,7 @@ public class User implements UserDetails {
 
     @Getter(value = AccessLevel.NONE)
     // information
-    private boolean enabled = true;
+    private boolean enabled = false;
 
     private boolean emailVerified = false;
     private boolean phoneVerified = false;
@@ -77,7 +77,8 @@ public class User implements UserDetails {
         return roles;
     }
 
-
+    // for this project:
+    // email id hai wahi hamare username
 
     @Override
     public String getUsername() {

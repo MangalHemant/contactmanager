@@ -52,6 +52,9 @@ public class SecurityConfig {
     @Autowired
     private OAuthAuthenicationSuccessHandler handler;
 
+    @Autowired
+    private AuthFailtureHandler authFailtureHandler;
+
     // configuraiton of authentication providerfor spring security
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -116,6 +119,7 @@ public class SecurityConfig {
             // }
 
             // });
+            formLogin.failureHandler(authFailtureHandler);
 
         });
 

@@ -35,9 +35,9 @@ public class PageController {
     public String home(Model model) {
         System.out.println("Home page handler");
         // sending data to view
-        model.addAttribute("name", "Hemant");
-        model.addAttribute("youtubeChannel", "bbkivines");
-        model.addAttribute("githubRepo", "https://github.com");
+        model.addAttribute("name", "Substring Technologies");
+        model.addAttribute("youtubeChannel", "Learn Code With Durgesh");
+        model.addAttribute("githubRepo", "https://github.com/learncodewithdurgesh/");
         return "home";
     }
 
@@ -65,7 +65,7 @@ public class PageController {
         return new String("contact");
     }
 
-    //login page
+    // this is showing login page
     @GetMapping("/login")
     public String login() {
         return new String("login");
@@ -76,8 +76,8 @@ public class PageController {
     public String register(Model model) {
 
         UserForm userForm = new UserForm();
-      
-        // userForm.setName("Hemant");
+        // default data bhi daal sakte hai
+        // userForm.setName("Durgesh");
         // userForm.setAbout("This is about : Write something about yourself");
         model.addAttribute("userForm", userForm);
 
@@ -99,7 +99,7 @@ public class PageController {
             return "register";
         }
 
-       
+        // TODO::Validate userForm[Next Video]
 
         // save to database
 
@@ -122,6 +122,7 @@ public class PageController {
         user.setPassword(userForm.getPassword());
         user.setAbout(userForm.getAbout());
         user.setPhoneNumber(userForm.getPhoneNumber());
+        user.setEnabled(false);
         user.setProfilePic(
                 "https://www.learncodewithdurgesh.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fdurgesh_sir.35c6cb78.webp&w=1920&q=75");
 
@@ -137,7 +138,8 @@ public class PageController {
 
         session.setAttribute("message", message);
 
-        // redirect to login page
+        // redirectto login page
         return "redirect:/register";
     }
+
 }
