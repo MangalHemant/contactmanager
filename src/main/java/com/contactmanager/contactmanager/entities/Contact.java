@@ -1,5 +1,7 @@
 package com.contactmanager.contactmanager.entities;
 
+
+
 import java.util.*;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -33,6 +35,7 @@ public class Contact {
     private String websiteLink;
     private String linkedInLink;
     // private List<String> socialLinks=new ArrayList<>();
+    private String cloudinaryImagePublicId;
 
     @ManyToOne
     private User user;
