@@ -4,7 +4,10 @@ package com.contactmanager.contactmanager.services;
 import java.util.List;
 
 import com.contactmanager.contactmanager.entities.Contact;
+import com.contactmanager.contactmanager.entities.User;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 
 public interface ContactService {
@@ -30,5 +33,7 @@ public interface ContactService {
 
     // get contacts by userId
     List<Contact> getByUserId(String userId);
+
+    Page<Contact> getByUser(User user, int page, int size, String sortField, String sortDirection);
 
 }
