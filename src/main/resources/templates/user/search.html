@@ -154,7 +154,9 @@
                         <i class="fa-solid w-6 h-6 fa-trash"></i>
                       </a>
                       <a href=""> <i class="fa-solid w-6 h-6 fa-pen"></i></a>
-                      <a href=""> <i class="fa-solid fa-eye"></i></a>
+                      <button th:onclick="loadContactdata([[${c.id}]])">
+                        <i class="fa-solid fa-eye"></i>
+                      </button>
                     </div>
                   </td>
                 </tr>
@@ -202,15 +204,18 @@
             </div>
 
             <h1
-            class="text-5xl text-center dark:bg-gray-800 dark:text-white bg-white p-4"
+              class="text-5xl text-center dark:bg-gray-800 dark:text-white bg-white p-4"
               data-th-if="${pageContact.totalElements<=0}"
             >
               No result found
             </h1>
           </div>
         </div>
+        <div data-th-replace="~{user/contact_modals :: contact}"></div>
       </div>
     </div>
+
+    <script data-th-src="@{'/js/contacts.js'}"></script>
 
     <script>
       console.log("this is profile page");
