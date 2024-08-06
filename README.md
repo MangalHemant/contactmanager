@@ -5,11 +5,16 @@
 
 
 1. Login Page
-![1](https://github.com/user-attachments/assets/e2e10db5-f010-4017-93fd-7551dc5627b9)
+   
+![3](https://github.com/user-attachments/assets/01a40651-9e18-4bc0-b45c-7635f20df9b3)
+
 
 2. SignUp Page
 
-![2](https://github.com/user-attachments/assets/a984328d-f6a1-4976-a058-764a6e6c083c)
+![4](https://github.com/user-attachments/assets/bd0ac23a-5da7-4943-9f16-003ae697c5c6)
+
+
+
 
 
 
