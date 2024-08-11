@@ -1,3 +1,5 @@
+Contact Manager
+
 •	Developed a robust contact management tool using Spring Boot.
 
 •	Enabled users to add contact details, update existing contacts, search through contacts, and delete contacts.
